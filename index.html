@@ -3,101 +3,385 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IEOC / ESports Omnipo by IEOC</title>
+  <meta name="theme-color" content="#050816" />
+  <meta name="description" content="IEOC / ESports Omnipo by IEOC — 195개국, 2,000명 본선, 16개 메인 종목의 글로벌 이스포츠 플랫폼." />
+  <title>IEOC | ESports Omnipo by IEOC</title>
   <style>
-    :root{--bg:#070b14;--card:#0d1426;--muted:#9fb0d0;--text:#eef3ff;--accent:#7c5cff;--accent2:#00d4ff;--line:rgba(255,255,255,.08)}
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top,#16213f 0,#08101f 40%,#05070d 100%);color:var(--text)}
-    .wrap{max-width:1200px;margin:0 auto;padding:28px 20px 56px}
-    .nav{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}
-    .brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-    .pill{padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);color:var(--muted);font-size:14px}
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:42px 0}
-    h1{margin:0 0 14px;font-size:clamp(40px,6vw,78px);line-height:.95}
-    .grad{background:linear-gradient(90deg,var(--accent2),#9b7bff,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .lead{color:var(--muted);font-size:18px;line-height:1.7;max-width:56ch}
-    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:14px;text-decoration:none;font-weight:700;border:1px solid transparent}
-    .btn.primary{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#04111d}
-    .btn.secondary{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--text)}
-    .panel{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:0 20px 80px rgba(0,0,0,.35)}
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-    .stat{padding:18px;border-radius:20px;background:rgba(10,17,33,.75);border:1px solid var(--line)}
-    .stat b{display:block;font-size:28px;margin-bottom:4px}
-    .stat span{color:var(--muted);font-size:14px;line-height:1.5}
-    section{margin-top:26px}
-    .section-title{font-size:22px;margin:0 0 14px}
+    :root{
+      --bg:#050816;
+      --bg2:#0a1024;
+      --card:#0d1630;
+      --card2:rgba(13,22,48,.78);
+      --text:#eef3ff;
+      --muted:#9fb0d0;
+      --line:rgba(255,255,255,.09);
+      --accent:#7c5cff;
+      --accent2:#00d4ff;
+      --accent3:#42ffb8;
+      --shadow:0 24px 80px rgba(0,0,0,.38);
+      --radius:24px;
+      --radius2:18px;
+      --max:1200px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124,92,255,.20), transparent 30%),
+        radial-gradient(circle at top right, rgba(0,212,255,.16), transparent 28%),
+        linear-gradient(180deg, #050816 0%, #070d1d 42%, #04060d 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:22px 20px 56px}
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(5,8,22,.62);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .topbar-inner{
+      max-width:var(--max);margin:0 auto;padding:14px 20px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .brand-mark{
+      width:38px;height:38px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      box-shadow:0 10px 30px rgba(124,92,255,.35);
+    }
+    .nav{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end}
+    .nav a{color:var(--muted);text-decoration:none;font-size:14px}
+    .nav a:hover{color:var(--text)}
+    .hero{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center;
+      padding:42px 0 18px;
+      min-height:calc(100vh - 90px);
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      border:1px solid var(--line);background:rgba(255,255,255,.04);
+      padding:10px 14px;border-radius:999px;color:var(--muted);font-size:14px;
+      margin-bottom:18px;
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--accent3);box-shadow:0 0 18px rgba(66,255,184,.8)}
+    h1{margin:0;font-size:clamp(40px,6vw,82px);line-height:.92;letter-spacing:-.04em}
+    .grad{
+      background:linear-gradient(90deg,var(--accent2),#9b7bff,var(--accent));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .lead{
+      margin:18px 0 0;max-width:56ch;
+      color:var(--muted);font-size:18px;line-height:1.75
+    }
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      min-height:48px;padding:0 18px;border-radius:16px;
+      text-decoration:none;font-weight:700;
+      border:1px solid transparent;
+      transition:transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      color:#04111d;
+      box-shadow:0 14px 34px rgba(0,212,255,.12);
+    }
+    .btn.secondary{
+      background:rgba(255,255,255,.04);
+      border-color:var(--line);
+      color:var(--text);
+    }
+    .hero-side{
+      position:relative;
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .hero-side::before{
+      content:"";
+      position:absolute;inset:-40% -20% auto auto;
+      width:280px;height:280px;border-radius:50%;
+      background:radial-gradient(circle, rgba(0,212,255,.24), transparent 65%);
+      pointer-events:none;
+    }
+    .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;position:relative;z-index:1}
+    .stat{
+      padding:18px;border-radius:20px;background:rgba(10,17,33,.82);
+      border:1px solid var(--line);
+    }
+    .stat b{display:block;font-size:28px;line-height:1;margin-bottom:8px}
+    .stat span{display:block;color:var(--muted);font-size:14px;line-height:1.55}
+    .section{padding:18px 0 8px}
+    .section h2{font-size:24px;margin:0 0 14px;letter-spacing:-.03em}
+    .section p.sub{margin:0 0 18px;color:var(--muted);line-height:1.7;max-width:70ch}
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px}
+    .card{
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:0 12px 40px rgba(0,0,0,.18);
+    }
     .card h3{margin:0 0 10px;font-size:18px}
-    .card p,.card li{color:var(--muted);line-height:1.7}
-    ul{margin:0;padding-left:18px}
-    .table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:18px;border:1px solid var(--line)}
-    .table th,.table td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-    .table th{background:rgba(255,255,255,.05)}
-    .footer{margin-top:30px;color:var(--muted);font-size:14px;text-align:center}
-    @media (max-width:900px){.hero,.cards{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}
-    @media (max-width:560px){.grid{grid-template-columns:1fr}.nav{flex-direction:column;align-items:flex-start}h1{font-size:44px}}
+    .card p{margin:0;color:var(--muted);line-height:1.7}
+    .features{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+    }
+    .feature{
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:20px;
+    }
+    .feature h3{margin:0 0 12px;font-size:18px}
+    .feature ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.8}
+    .table-wrap{
+      overflow:auto;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.03)
+    }
+    table{width:100%;border-collapse:collapse;min-width:700px}
+    th,td{padding:15px 16px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+    th{background:rgba(255,255,255,.05)}
+    td{color:var(--muted)}
+    .timeline{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:14px
+    }
+    .step{
+      background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:18px
+    }
+    .step .n{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:32px;height:32px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      color:#04111d;font-weight:800;margin-bottom:12px
+    }
+    .step h3{margin:0 0 8px;font-size:17px}
+    .step p{margin:0;color:var(--muted);line-height:1.7}
+    .highlight{
+      padding:24px;border-radius:28px;
+      background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(124,92,255,.10));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:var(--shadow);
+    }
+    .highlight strong{color:var(--text)}
+    .footer{
+      margin-top:26px;
+      padding:24px 0 0;
+      color:var(--muted);
+      font-size:14px;
+      text-align:center;
+    }
+    .mini{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:16px
+    }
+    .tag{
+      padding:9px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--muted);font-size:13px
+    }
+    @media (max-width: 980px){
+      .hero,.cards,.features,.timeline{grid-template-columns:1fr}
+      .nav{display:none}
+      .hero{min-height:auto;padding-top:24px}
+      .stat-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 560px){
+      .stat-grid{grid-template-columns:1fr}
+      h1{font-size:44px}
+      .lead{font-size:16px}
+      .wrap{padding-left:16px;padding-right:16px}
+      .btn{width:100%}
+      .cta-row{flex-direction:column}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="nav">
-      <div class="brand">IEOC / Omnipo</div>
-      <div class="pill">Global esports map • 195 countries • 100+ games</div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div>IEOC / Omnipo</div>
+      </div>
+      <nav class="nav">
+        <a href="#vision">비전</a>
+        <a href="#format">포맷</a>
+        <a href="#infrastructure">인프라</a>
+        <a href="#ops">운영</a>
+        <a href="#rewards">보상</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="hero">
+  <main class="wrap">
+    <section class="hero">
       <div>
-        <h1><span class="grad">ESports Omnipo</span><br/>by IEOC</h1>
-        <p class="lead">전 세계 195개국의 PC방과 온라인 단톡방을 연결해, 국가대표 리더보드와 대회 본선을 하나의 지도에서 운영하는 글로벌 이스포츠 플랫폼입니다.</p>
-        <div class="actions">
-          <a class="btn primary" href="#vision">플랫폼 보기</a>
-          <a class="btn secondary" href="#format">대회 구조</a>
+        <div class="eyebrow"><span class="dot"></span> 195개국 • 2,000명 본선 • 16개 메인 종목</div>
+        <h1><span class="grad">ESports Omnipo</span><br>by IEOC</h1>
+        <p class="lead">
+          전 세계 동네 PC방과 온라인 단톡방을 하나의 지도 위에서 연결하고,
+          국가대표 리더보드와 오프라인 본선을 함께 굴리는 차세대 글로벌 이스포츠 플랫폼입니다.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#format">플랫폼 구조 보기</a>
+          <a class="btn secondary" href="#rewards">보상 체계 보기</a>
+        </div>
+        <div class="mini">
+          <span class="tag">Mapbox 지도</span>
+          <span class="tag">국가별 리더보드</span>
+          <span class="tag">PC방 검증</span>
+          <span class="tag">16일 메가 이벤트</span>
+          <span class="tag">32개 카테고리 확장</span>
         </div>
       </div>
-      <div class="panel">
-        <div class="grid">
-          <div class="stat"><b>2,000+</b><span>오프라인 본선 선수 규모</span></div>
-          <div class="stat"><b>16</b><span>메인 종목 마스터피스 라인업</span></div>
-          <div class="stat"><b>35~100</b><span>롱테일 카테고리 확장</span></div>
-          <div class="stat"><b>4</b><span>메가 컨벤션 홀 운영 구조</span></div>
-        </div>
-      </div>
-    </div>
 
-    <section id="vision">
-      <h2 class="section-title">핵심 비전</h2>
+      <aside class="hero-side">
+        <div class="stat-grid">
+          <div class="stat"><b>2,000+</b><span>오프라인 본선 선수 규모</span></div>
+          <div class="stat"><b>16</b><span>메인 종목 마스터 라인업</span></div>
+          <div class="stat"><b>4</b><span>대형 컨벤션 홀 운영</span></div>
+          <div class="stat"><b>100+</b><span>롱테일 종목 확장 여지</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="vision" class="section">
+      <h2>핵심 비전</h2>
+      <p class="sub">IEOC는 초대형 본선 이벤트와 풀뿌리 플랫폼을 동시에 운영하는 구조입니다. 대형 스폰서가 주목하는 쇼케이스와, 지역 커뮤니티가 자생적으로 커지는 네트워크를 함께 설계했습니다.</p>
       <div class="cards">
         <article class="card">
-          <h3>Mapbox 기반 전투장</h3>
-          <p>국가, 도시, 동네, PC방 단위로 리더보드를 시각화하고 지역 거점을 실시간으로 보여줍니다.</p>
+          <h3>지도 기반 플레이</h3>
+          <p>국가, 도시, 동네, PC방 단위로 참여 현황과 리더보드를 시각화합니다.</p>
         </article>
         <article class="card">
-          <h3>검증 가능한 매치</h3>
-          <p>체크인, QR, 사장님 승인, 교차 검증으로 온라인·오프라인 결과 조작을 최소화합니다.</p>
+          <h3>조작 방지 검증</h3>
+          <p>체크인, QR, 점주 승인, 교차 검증을 통해 결과 신뢰도를 높입니다.</p>
         </article>
         <article class="card">
           <h3>명예와 보상</h3>
-          <p>타이틀, 쿠폰, 기어 보상, 국가대표 시드권으로 플레이어의 참여 동기를 강화합니다.</p>
+          <p>타이틀, 굿즈, 쿠폰, 시드권, 기어 부상으로 참여 동기를 강화합니다.</p>
         </article>
       </div>
     </section>
 
-    <section id="format">
-      <h2 class="section-title">대회 포맷</h2>
-      <table class="table">
-        <thead>
-          <tr><th>구성</th><th>설명</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>메인 무대</td><td>16개 종목, 32강 브래킷 중심의 오프라인 본선.</td></tr>
-          <tr><td>인프라</td><td>메인 아레나 1개와 PC 팀게임, FPS, 격투/레트로 홀이 분리된 4홀 구조.</td></tr>
-          <tr><td>확장성</td><td>32개 카테고리와 최대 100개 내외 게임까지 롱테일 확장 가능.</td></tr>
-        </tbody>
-      </table>
+    <section id="format" class="section">
+      <h2>대회 포맷</h2>
+      <p class="sub">오프라인 본선은 16개 종목, 32강 브래킷, 2,000명 내외의 선수 규모를 기준으로 설계합니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>구성</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>메인 종목</td>
+              <td>RTS, MOBA, FPS, 격투, 스포츠, 레트로를 아우르는 16개 종목.</td>
+            </tr>
+            <tr>
+              <td>본선 규모</td>
+              <td>종목당 32강 중심, 총 2,000명 수준의 선수단을 목표로 운영.</td>
+            </tr>
+            <tr>
+              <td>대회 기간</td>
+              <td>16일간 진행, 주말 결승과 폐막식에 관객 몰입을 집중.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
-    <p class="footer">IEOC의 초대형 이스포츠 기획안을 기반으로 정리한 랜딩 페이지 초안입니다.</p>
-  </div>
+    <section id="infrastructure" class="section">
+      <h2>인프라 구성</h2>
+      <p class="sub">한 개의 대형 컨벤션 센터를 4개 홀로 나누는 방식이 동선과 비용 면에서 가장 효율적입니다.</p>
+      <div class="features">
+        <div class="feature">
+          <h3>메인 아레나</h3>
+          <ul>
+            <li>개막식, 폐막식, 주요 종목 결승.</li>
+            <li>약 10,000석 규모의 상징 공간.</li>
+          </ul>
+        </div>
+        <div class="feature">
+          <h3>PC 팀게임 홀</h3>
+          <ul>
+            <li>LoL, 발로란트, CS2, 도타 2.</li>
+            <li>고사양 PC와 안정적인 무대 전환.</li>
+          </ul>
+        </div>
+        <div class="feature">
+          <h3>FPS / 배틀로얄 홀</h3>
+          <ul>
+            <li>배틀그라운드, 오버워치 2.</li>
+            <li>대규모 장비 세팅과 관전 최적화.</li>
+          </ul>
+        </div>
+        <div class="feature">
+          <h3>격투 / 레트로 홀</h3>
+          <ul>
+            <li>철권, 스파, 대난투, 마리오, 테트리스, FC.</li>
+            <li>회전율이 빠르고 축제 분위기 연출에 적합.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="ops" class="section">
+      <h2>운영 프로세스</h2>
+      <p class="sub">온라인·오프라인 혼합 구조에서도 결과를 안정적으로 확정하려면 단계별 검증이 필요합니다.</p>
+      <div class="timeline">
+        <div class="step">
+          <div class="n">1</div>
+          <h3>매치 확정</h3>
+          <p>양 팀이 시간과 장소를 합의하고 고유 매치 ID를 생성합니다.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h3>현장 체크인</h3>
+          <p>GPS 또는 IP 기반 체크인으로 대리 참가와 무효 매치를 방지합니다.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h3>결과 입력</h3>
+          <p>경기 종료 후 양 팀이 승패를 입력합니다.</p>
+        </div>
+        <div class="step">
+          <div class="n">4</div>
+          <h3>교차 검증</h3>
+          <p>입력이 일치하면 즉시 반영하고, 충돌 시 홀드 후 판정 절차로 넘깁니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="rewards" class="section">
+      <h2>보상 체계</h2>
+      <div class="highlight">
+        <p style="margin:0; color:var(--muted); line-height:1.8">
+          <strong>핵심은 명예와 혜택을 동시에 주는 것입니다.</strong>
+          지역 1위 타이틀, 홈그라운드 PC방 쿠폰, 게이밍 기어 부상, 그리고 최종적으로는
+          IEOC 오프라인 본선 시드권까지 연결해, 유저가 계속 돌아오게 만드는 구조가 필요합니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>도입 문구</h2>
+      <p class="sub">
+        랜딩 페이지 첫 화면에는 “전 세계 195개국의 PC방이 하나의 이스포츠 지도 위에서 연결된다”는 메시지를 두고,
+        그 아래에 2,000명 본선과 16개 종목을 명확하게 보여주는 구성이 가장 설득력이 좋습니다.
+      </p>
+    </section>
+
+    <div class="footer">
+      IEOC / ESports Omnipo by IEOC — 실전 배포용 랜딩 페이지 초안
+    </div>
+  </main>
 </body>
 </html>
