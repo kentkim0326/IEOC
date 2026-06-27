@@ -6,12 +6,15 @@
   <meta name="theme-color" content="#050816" />
   <meta name="description" content="IEOC / ESports Omnipo by IEOC — 195개국, 2,000명 본선, 16개 메인 종목의 글로벌 이스포츠 플랫폼." />
   <title>IEOC | ESports Omnipo by IEOC</title>
+
+  <link rel="preconnect" href="https://api.mapbox.com" />
+  <link rel="preconnect" href="https://events.mapbox.com" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
+
   <style>
     :root{
       --bg:#050816;
-      --bg2:#0a1024;
-      --card:#0d1630;
-      --card2:rgba(13,22,48,.78);
+      --card:rgba(13,22,48,.82);
       --text:#eef3ff;
       --muted:#9fb0d0;
       --line:rgba(255,255,255,.09);
@@ -20,7 +23,6 @@
       --accent3:#42ffb8;
       --shadow:0 24px 80px rgba(0,0,0,.38);
       --radius:24px;
-      --radius2:18px;
       --max:1200px;
     }
     *{box-sizing:border-box}
@@ -124,7 +126,7 @@
     .section p.sub{margin:0 0 18px;color:var(--muted);line-height:1.7;max-width:70ch}
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .card{
-      background:var(--card2);
+      background:var(--card);
       border:1px solid var(--line);
       border-radius:var(--radius);
       padding:18px;
@@ -136,7 +138,7 @@
       display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
     }
     .feature{
-      background:var(--card2);
+      background:var(--card);
       border:1px solid var(--line);
       border-radius:var(--radius);
       padding:20px;
@@ -154,7 +156,7 @@
       display:grid;grid-template-columns:repeat(4,1fr);gap:14px
     }
     .step{
-      background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:18px
+      background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px
     }
     .step .n{
       display:inline-flex;align-items:center;justify-content:center;
@@ -170,7 +172,36 @@
       border:1px solid rgba(255,255,255,.10);
       box-shadow:var(--shadow);
     }
-    .highlight strong{color:var(--text)}
+    .map-shell{
+      display:grid;
+      grid-template-columns:1.35fr .65fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    #map{
+      width:100%;
+      min-height:620px;
+      border-radius:28px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .map-panel{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:20px;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .panel-title{font-size:18px;font-weight:800}
+    .panel-box{
+      padding:16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid var(--line);
+    }
+    .panel-box h3{margin:0 0 8px;font-size:16px}
+    .panel-box p{margin:0;color:var(--muted);line-height:1.65;font-size:14px}
     .footer{
       margin-top:26px;
       padding:24px 0 0;
@@ -178,18 +209,18 @@
       font-size:14px;
       text-align:center;
     }
-    .mini{
-      display:flex;flex-wrap:wrap;gap:10px;margin-top:16px
-    }
+    .mini{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
     .tag{
       padding:9px 12px;border-radius:999px;border:1px solid var(--line);
       background:rgba(255,255,255,.04);color:var(--muted);font-size:13px
     }
+    .marker-popup-title{font-weight:800;margin-bottom:4px}
     @media (max-width: 980px){
-      .hero,.cards,.features,.timeline{grid-template-columns:1fr}
+      .hero,.cards,.features,.timeline,.map-shell{grid-template-columns:1fr}
       .nav{display:none}
       .hero{min-height:auto;padding-top:24px}
       .stat-grid{grid-template-columns:1fr 1fr}
+      #map{min-height:420px}
     }
     @media (max-width: 560px){
       .stat-grid{grid-template-columns:1fr}
@@ -210,10 +241,9 @@
       </div>
       <nav class="nav">
         <a href="#vision">비전</a>
+        <a href="#map-section">지도</a>
         <a href="#format">포맷</a>
-        <a href="#infrastructure">인프라</a>
         <a href="#ops">운영</a>
-        <a href="#rewards">보상</a>
       </nav>
     </div>
   </header>
@@ -228,7 +258,7 @@
           국가대표 리더보드와 오프라인 본선을 함께 굴리는 차세대 글로벌 이스포츠 플랫폼입니다.
         </p>
         <div class="cta-row">
-          <a class="btn primary" href="#format">플랫폼 구조 보기</a>
+          <a class="btn primary" href="#map-section">실시간 지도 보기</a>
           <a class="btn secondary" href="#rewards">보상 체계 보기</a>
         </div>
         <div class="mini">
@@ -269,67 +299,43 @@
       </div>
     </section>
 
+    <section id="map-section" class="section">
+      <h2>글로벌 전투장 지도</h2>
+      <p class="sub">Mapbox GL JS는 웹에서 인터랙티브 지도를 띄우는 공식 라이브러리이고, GeoJSON 소스에 클러스터링을 적용하면 국가별·도시별·PC방별 점포를 한 화면에서 다룰 수 있습니다 [web:2][web:6][web:7][web:8].</p>
+      <div class="map-shell">
+        <div id="map"></div>
+        <aside class="map-panel">
+          <div class="panel-title">선택된 전투장</div>
+          <div class="panel-box">
+            <h3 id="spot-name">아직 선택되지 않음</h3>
+            <p id="spot-meta">지도 마커를 클릭하면 PC방 이름, 국가, 종목, 현재 리더보드 상태가 표시됩니다.</p>
+          </div>
+          <div class="panel-box">
+            <h3>운영 포인트</h3>
+            <p>클러스터는 확대 시 개별 마커로 분리되고, 축소 시 국가별 참여 밀도로 묶입니다. [web:7]</p>
+          </div>
+          <div class="panel-box">
+            <h3>추천 연결 데이터</h3>
+            <p>국가, 도시, PC방, 종목, 세대, 매치 상태, 점주 승인 여부를 함께 저장하는 구조가 좋습니다.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
     <section id="format" class="section">
       <h2>대회 포맷</h2>
       <p class="sub">오프라인 본선은 16개 종목, 32강 브래킷, 2,000명 내외의 선수 규모를 기준으로 설계합니다.</p>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr>
-              <th>구성</th>
-              <th>설명</th>
-            </tr>
+            <tr><th>구성</th><th>설명</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>메인 종목</td>
-              <td>RTS, MOBA, FPS, 격투, 스포츠, 레트로를 아우르는 16개 종목.</td>
-            </tr>
-            <tr>
-              <td>본선 규모</td>
-              <td>종목당 32강 중심, 총 2,000명 수준의 선수단을 목표로 운영.</td>
-            </tr>
-            <tr>
-              <td>대회 기간</td>
-              <td>16일간 진행, 주말 결승과 폐막식에 관객 몰입을 집중.</td>
-            </tr>
+            <tr><td>메인 종목</td><td>RTS, MOBA, FPS, 격투, 스포츠, 레트로를 아우르는 16개 종목.</td></tr>
+            <tr><td>본선 규모</td><td>종목당 32강 중심, 총 2,000명 수준의 선수단을 목표로 운영.</td></tr>
+            <tr><td>대회 기간</td><td>16일간 진행, 주말 결승과 폐막식에 관객 몰입을 집중.</td></tr>
           </tbody>
         </table>
-      </div>
-    </section>
-
-    <section id="infrastructure" class="section">
-      <h2>인프라 구성</h2>
-      <p class="sub">한 개의 대형 컨벤션 센터를 4개 홀로 나누는 방식이 동선과 비용 면에서 가장 효율적입니다.</p>
-      <div class="features">
-        <div class="feature">
-          <h3>메인 아레나</h3>
-          <ul>
-            <li>개막식, 폐막식, 주요 종목 결승.</li>
-            <li>약 10,000석 규모의 상징 공간.</li>
-          </ul>
-        </div>
-        <div class="feature">
-          <h3>PC 팀게임 홀</h3>
-          <ul>
-            <li>LoL, 발로란트, CS2, 도타 2.</li>
-            <li>고사양 PC와 안정적인 무대 전환.</li>
-          </ul>
-        </div>
-        <div class="feature">
-          <h3>FPS / 배틀로얄 홀</h3>
-          <ul>
-            <li>배틀그라운드, 오버워치 2.</li>
-            <li>대규모 장비 세팅과 관전 최적화.</li>
-          </ul>
-        </div>
-        <div class="feature">
-          <h3>격투 / 레트로 홀</h3>
-          <ul>
-            <li>철권, 스파, 대난투, 마리오, 테트리스, FC.</li>
-            <li>회전율이 빠르고 축제 분위기 연출에 적합.</li>
-          </ul>
-        </div>
       </div>
     </section>
 
@@ -371,17 +377,193 @@
       </div>
     </section>
 
-    <section class="section">
-      <h2>도입 문구</h2>
-      <p class="sub">
-        랜딩 페이지 첫 화면에는 “전 세계 195개국의 PC방이 하나의 이스포츠 지도 위에서 연결된다”는 메시지를 두고,
-        그 아래에 2,000명 본선과 16개 종목을 명확하게 보여주는 구성이 가장 설득력이 좋습니다.
-      </p>
-    </section>
-
     <div class="footer">
-      IEOC / ESports Omnipo by IEOC — 실전 배포용 랜딩 페이지 초안
+      IEOC / ESports Omnipo by IEOC — 실전 배포용 랜딩 페이지
     </div>
   </main>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+  <script>
+    mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+
+    const sampleGeoJSON = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          properties: {
+            name: 'Seoul Gangnam Battle Arena',
+            country: 'KR',
+            city: 'Seoul',
+            game: 'League of Legends',
+            status: 'Rank #1',
+            description: '강남구 대표 전투장, 고등부/대학부 리더보드 상위권 거점.'
+          },
+          geometry: { type: 'Point', coordinates: [127.028, 37.497] }
+        },
+        {
+          type: 'Feature',
+          properties: {
+            name: 'Busan Nampo Retro House',
+            country: 'KR',
+            city: 'Busan',
+            game: 'StarCraft',
+            status: 'Rank #3',
+            description: '레트로와 RTS 유저가 모이는 부산 남포의 핵심 거점.'
+          },
+          geometry: { type: 'Point', coordinates: [129.035, 35.098] }
+        },
+        {
+          type: 'Feature',
+          properties: {
+            name: 'Tokyo Shibuya Fighter Hub',
+            country: 'JP',
+            city: 'Tokyo',
+            game: 'Tekken 8',
+            status: 'Rank #2',
+            description: '격투 게임 커뮤니티용 시부야 전투장.'
+          },
+          geometry: { type: 'Point', coordinates: [139.700, 35.659] }
+        },
+        {
+          type: 'Feature',
+          properties: {
+            name: 'Sao Paulo Arena West',
+            country: 'BR',
+            city: 'Sao Paulo',
+            game: 'Valorant',
+            status: 'Rank #4',
+            description: '남미 FPS 유저들을 위한 대형 클러스터 거점.'
+          },
+          geometry: { type: 'Point', coordinates: [-46.633, -23.550] }
+        },
+        {
+          type: 'Feature',
+          properties: {
+            name: 'Los Angeles Coast Clash Center',
+            country: 'US',
+            city: 'Los Angeles',
+            game: 'FC',
+            status: 'Rank #5',
+            description: '미국 서부 스포츠 이스포츠 연결 허브.'
+          },
+          geometry: { type: 'Point', coordinates: [-118.243, 34.052] }
+        }
+      ]
+    };
+
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/dark-v11',
+      center: [120, 25],
+      zoom: 1.6,
+      minZoom: 1.2
+    });
+
+    map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-right');
+
+    const popupHtml = (props) => `
+      <div class="marker-popup-title">${props.name}</div>
+      <div>${props.country} · ${props.city}</div>
+      <div>${props.game} · ${props.status}</div>
+    `;
+
+    map.on('load', () => {
+      map.addSource('battle-spots', {
+        type: 'geojson',
+        data: sampleGeoJSON,
+        cluster: true,
+        clusterMaxZoom: 11,
+        clusterRadius: 50
+      });
+
+      map.addLayer({
+        id: 'clusters',
+        type: 'circle',
+        source: 'battle-spots',
+        filter: ['has', 'point_count'],
+        paint: {
+          'circle-color': [
+            'step',
+            ['get', 'point_count'],
+            '#42ffb8',
+            10,
+            '#00d4ff',
+            30,
+            '#7c5cff'
+          ],
+          'circle-radius': [
+            'step',
+            ['get', 'point_count'],
+            18,
+            10,
+            24,
+            30,
+            34
+          ],
+          'circle-opacity': 0.92
+        }
+      });
+
+      map.addLayer({
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'battle-spots',
+        filter: ['has', 'point_count'],
+        layout: {
+          'text-field': ['get', 'point_count_abbreviated'],
+          'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+          'text-size': 12
+        },
+        paint: {
+          'text-color': '#04111d'
+        }
+      });
+
+      map.addLayer({
+        id: 'unclustered-point',
+        type: 'circle',
+        source: 'battle-spots',
+        filter: ['!', ['has', 'point_count']],
+        paint: {
+          'circle-color': '#00d4ff',
+          'circle-radius': 8,
+          'circle-stroke-width': 2,
+          'circle-stroke-color': '#ffffff'
+        }
+      });
+
+      map.on('click', 'clusters', async (e) => {
+        const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+        const clusterId = features[0].properties.cluster_id;
+        const source = map.getSource('battle-spots');
+
+        source.getClusterExpansionZoom(clusterId, (err, zoom) => {
+          if (err) return;
+          map.easeTo({
+            center: features[0].geometry.coordinates,
+            zoom
+          });
+        });
+      });
+
+      map.on('click', 'unclustered-point', (e) => {
+        const props = e.features[0].properties;
+        document.getElementById('spot-name').textContent = props.name;
+        document.getElementById('spot-meta').textContent =
+          `${props.country} · ${props.city} · ${props.game} · ${props.status} — ${props.description}`;
+
+        new mapboxgl.Popup({ offset: 14 })
+          .setLngLat(e.features[0].geometry.coordinates)
+          .setHTML(popupHtml(props))
+          .addTo(map);
+      });
+
+      map.on('mouseenter', 'clusters', () => map.getCanvas().style.cursor = 'pointer');
+      map.on('mouseleave', 'clusters', () => map.getCanvas().style.cursor = '');
+      map.on('mouseenter', 'unclustered-point', () => map.getCanvas().style.cursor = 'pointer');
+      map.on('mouseleave', 'unclustered-point', () => map.getCanvas().style.cursor = '');
+    });
+  </script>
 </body>
 </html>
