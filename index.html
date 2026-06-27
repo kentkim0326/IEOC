@@ -1,85 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ESports Omnipo by IEOC</title>
-    <link rel="stylesheet" href="styles.css" />
-    <!-- Mapbox CSS, JS 필요 시 추가 -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IEOC / ESports Omnipo by IEOC</title>
+  <style>
+    :root{--bg:#070b14;--card:#0d1426;--muted:#9fb0d0;--text:#eef3ff;--accent:#7c5cff;--accent2:#00d4ff;--line:rgba(255,255,255,.08)}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top,#16213f 0,#08101f 40%,#05070d 100%);color:var(--text)}
+    .wrap{max-width:1200px;margin:0 auto;padding:28px 20px 56px}
+    .nav{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}
+    .brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .pill{padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);color:var(--muted);font-size:14px}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:42px 0}
+    h1{margin:0 0 14px;font-size:clamp(40px,6vw,78px);line-height:.95}
+    .grad{background:linear-gradient(90deg,var(--accent2),#9b7bff,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--muted);font-size:18px;line-height:1.7;max-width:56ch}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:14px;text-decoration:none;font-weight:700;border:1px solid transparent}
+    .btn.primary{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#04111d}
+    .btn.secondary{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--text)}
+    .panel{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:0 20px 80px rgba(0,0,0,.35)}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .stat{padding:18px;border-radius:20px;background:rgba(10,17,33,.75);border:1px solid var(--line)}
+    .stat b{display:block;font-size:28px;margin-bottom:4px}
+    .stat span{color:var(--muted);font-size:14px;line-height:1.5}
+    section{margin-top:26px}
+    .section-title{font-size:22px;margin:0 0 14px}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px}
+    .card h3{margin:0 0 10px;font-size:18px}
+    .card p,.card li{color:var(--muted);line-height:1.7}
+    ul{margin:0;padding-left:18px}
+    .table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:18px;border:1px solid var(--line)}
+    .table th,.table td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+    .table th{background:rgba(255,255,255,.05)}
+    .footer{margin-top:30px;color:var(--muted);font-size:14px;text-align:center}
+    @media (max-width:900px){.hero,.cards{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.grid{grid-template-columns:1fr}.nav{flex-direction:column;align-items:flex-start}h1{font-size:44px}}
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">ESports Omnipo</div>
-        <nav>
-            <ul>
-                <li><a href="#games">게임종목</a></li>
-                <li><a href="#tournaments">대회</a></li>
-                <li><a href="#leaderboard">리더보드</a></li>
-                <li><a href="#community">커뮤니티</a></li>
-                <li><a href="#about">소개</a></li>
-            </ul>
-        </nav>
-    </header>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">IEOC / Omnipo</div>
+      <div class="pill">Global esports map • 195 countries • 100+ games</div>
+    </div>
 
-    <main>
-        <section id="hero">
-            <h1>195개국 PC방과 함께하는 글로벌 e스포츠 대회</h1>
-            <p>전 세계 유저들이 자기 동네 PC방에서 대전을 벌이며 국가대표 타이틀에 도전합니다.</p>
-            <button>참가하기</button>
-        </section>
-
-        <section id="map">
-            <h2>Omnipotent Map</h2>
-            <div id="mapbox-container" style="width:100%;height:400px;">
-                <!-- Mapbox 지도 삽입 예정 -->
-            </div>
-        </section>
-
-        <section id="leaderboard">
-            <h2>글로벌 리더보드</h2>
-            <p>국가별, 게임별 리더보드를 확인하고 나만의 명예를 높이세요.</p>
-            <!-- 리더보드 테이블/탭 구조 삽입 -->
-        </section>
-
-        <section id="games">
-            <h2>게임 종목</h2>
-            <ul>
-                <li>슈퍼마리오</li>
-                <li>DJMAX</li>
-                <li>마인크래프트 (건축 배틀)</li>
-                <li>소울류 게임 스피드런</li>
-                <!-- 32개 카테고리를 대표하는 종목들 간략 나열 -->
-            </ul>
-        </section>
-
-        <section id="community">
-            <h2>커뮤니티 & 단톡방</h2>
-            <p>내 국가, 내 게임 공식 단톡방에서 게릴라 매칭과 교류를 즐기세요.</p>
-            <button>단톡방 참여하기</button>
-        </section>
-
-        <section id="referee">
-            <h2>PC방 사장님 전용</h2>
-            <p>3초 컷 승패 입력 시스템으로 간편하고 확실한 검증을 지원합니다.</p>
-            <ul>
-                <li>매출 증대</li>
-                <li>이스포츠 성지 인증</li>
-                <li>플랫폼 포인트 및 광고 혜택</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2026 ESports Omnipo by IEOC. All rights reserved.</p>
-        <div class="partners">
-            <img src="nvidia-logo.png" alt="NVIDIA" />
-            <img src="ieoc-logo.png" alt="IEOC" />
+    <div class="hero">
+      <div>
+        <h1><span class="grad">ESports Omnipo</span><br/>by IEOC</h1>
+        <p class="lead">전 세계 195개국의 PC방과 온라인 단톡방을 연결해, 국가대표 리더보드와 대회 본선을 하나의 지도에서 운영하는 글로벌 이스포츠 플랫폼입니다.</p>
+        <div class="actions">
+          <a class="btn primary" href="#vision">플랫폼 보기</a>
+          <a class="btn secondary" href="#format">대회 구조</a>
         </div>
-    </footer>
+      </div>
+      <div class="panel">
+        <div class="grid">
+          <div class="stat"><b>2,000+</b><span>오프라인 본선 선수 규모</span></div>
+          <div class="stat"><b>16</b><span>메인 종목 마스터피스 라인업</span></div>
+          <div class="stat"><b>35~100</b><span>롱테일 카테고리 확장</span></div>
+          <div class="stat"><b>4</b><span>메가 컨벤션 홀 운영 구조</span></div>
+        </div>
+      </div>
+    </div>
 
-    <script src="mapbox-gl.js"></script>
-    <script>
-        // Mapbox 지도 초기화 코드 삽입 예정
-    </script>
+    <section id="vision">
+      <h2 class="section-title">핵심 비전</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>Mapbox 기반 전투장</h3>
+          <p>국가, 도시, 동네, PC방 단위로 리더보드를 시각화하고 지역 거점을 실시간으로 보여줍니다.</p>
+        </article>
+        <article class="card">
+          <h3>검증 가능한 매치</h3>
+          <p>체크인, QR, 사장님 승인, 교차 검증으로 온라인·오프라인 결과 조작을 최소화합니다.</p>
+        </article>
+        <article class="card">
+          <h3>명예와 보상</h3>
+          <p>타이틀, 쿠폰, 기어 보상, 국가대표 시드권으로 플레이어의 참여 동기를 강화합니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="format">
+      <h2 class="section-title">대회 포맷</h2>
+      <table class="table">
+        <thead>
+          <tr><th>구성</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>메인 무대</td><td>16개 종목, 32강 브래킷 중심의 오프라인 본선.</td></tr>
+          <tr><td>인프라</td><td>메인 아레나 1개와 PC 팀게임, FPS, 격투/레트로 홀이 분리된 4홀 구조.</td></tr>
+          <tr><td>확장성</td><td>32개 카테고리와 최대 100개 내외 게임까지 롱테일 확장 가능.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <p class="footer">IEOC의 초대형 이스포츠 기획안을 기반으로 정리한 랜딩 페이지 초안입니다.</p>
+  </div>
 </body>
 </html>
